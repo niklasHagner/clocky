@@ -71,7 +71,6 @@ function main(){
       '#e6e8fa',
       'lightgreen'
   ];
-
   function randomizeColor() {
       var random_color = colors[Math.floor(Math.random() * colors.length)];
       return random_color;
@@ -178,7 +177,10 @@ const backgrounds = [
   "https://i.kym-cdn.com/photos/images/newsfeed/000/137/450/tumblr_lmy72dhU8s1qzcq51o1_500.gif?1308592294",
   "https://media1.giphy.com/media/xT0xeK2kHV7n4qVGEg/giphy.gif",
   "https://raventools.com/blog/wp-content/uploads/2013/04/cab-window-429.gif",
-  "https://i.pinimg.com/originals/6c/6c/aa/6c6caa58c39088561b7d2cd0115c58a0.gif"
+  "https://i.pinimg.com/originals/6c/6c/aa/6c6caa58c39088561b7d2cd0115c58a0.gif",
+  "http://gifzign.com/wp-content/uploads/2017/07/Armani-Coffee-615.gif",
+  "http://gifzign.com/wp-content/uploads/2017/07/60s9801.gif",
+  "https://assets.econsultancy.com/images/resized/0006/3909/chopard-marketing-cinemagraph-blog-flyer.png"
 ];
 function loadBackground() {
   const url = backgrounds[Math.floor(Math.random() * backgrounds.length)];
