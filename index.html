@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>What time is it?</title>
+    <meta name="description" content="clock and timer">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="main.css" />
+    <script src="main.js"></script>
+    <style>
+        html {
+            box-sizing: border-box;
+        }
+
+        *, *:before, *:after {
+            box-sizing: inherit;
+        }
+
+        *, *:active, *:focus {
+            outline: none;
+        }
+        .hidden {
+            visibility: hidden !important;
+        }
+    </style>
+</head>
+
+<body>
+    <section id="main">
+        <nav class="menu">
+            <span class="tab tab--clock tab--active" data-content-tab-selector="#time-tab">Clock</span>
+            <span class="tab tab--egg-timer" data-content-tab-selector="#egg-timer">Timer</span>
+            <span class="tab tab--calendar" data-content-tab-selector="#calendar">Calendar</span>
+        </nav>
+
+        <article id="time-tab" class="content-tab"> 
+            <section id="time">
+                <span id="mins">00:00</span><span id="seconds">00</span>
+            </section>
+
+            <section>
+                <button id="dark-mode">Dark mode</button>
+                <button id="geek-mode">Geek mode</button>
+                <button id="animation-mode">Changing colors</button>
+            </section>
+        </article>
+        
+        <article id="egg-timer" class="hidden content-tab"> 
+            <div id="egg-timer-clock">00:00</div>
+            <button id="egg-timer-start">start</button>
+            <button id="egg-timer-stop">stop</button>
+            <button id="egg-timer-reset">reset</button>
+        </article>
+
+        <article id="calendar" class="hidden content-tab"> 
+            <iframe src="https://kalendern.herokuapp.com"  width="100%" height="600px" allowfullscreen="" frameborder="0" >
+            </iframe>
+        </article>
+
+    </section>
+        
+</body>
+
+</html>

@@ -1,0 +1,126 @@
+html * {
+    box-sizing: border-box;
+}
+body {
+    text-align: center;
+    font-family: helvetica;
+    text-shadow: 0px 0px 2px #555;
+    font-weight: bold;
+    color: #eee;
+    transition: all 10s;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover;
+}
+.transparent {
+    color: transparent;
+}
+.hidden {
+    display: none;
+}
+button {
+    cursor: pointer;
+}
+
+.menu {
+    display: block;
+    padding: 5px 0 20px 0;
+}
+
+.tab {
+    display: inline-block;
+    width: 65px;
+    padding: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+    border: solid 2px transparent;
+}
+.tab:not(:nth-of-type(1)) {
+    margin-left: 4px;
+    padding-left: 4px;
+}
+.tab:hover {
+    border-bottom-color: #4b89dc;
+}
+.tab--active {
+    color: #4b89dc;
+}
+@media only screen and (min-width: 769px) {
+    .tab {
+        width: 100px;
+        padding: 4px 8px;
+    }
+    .tab:not(:nth-of-type(1)) {
+        margin-left: 4px;
+        padding-left: 4px;
+    }
+}
+  
+
+#time {
+    font-size: 20vw;
+    opacity: 0.85;
+    display: inline-block;
+    position: relative;
+}
+#seconds {
+    font-size: 5vw;
+    position: absolute;
+    top: -10px;
+    right: -100px;
+}
+
+.dark-mode {
+    background-color: #111;
+    color: #eee;
+    opacity: 0.8;
+}
+.dark-mode button {
+    border: solid 2px #555;
+    background-color: #222;
+    color: white;
+    outline: white;
+}
+.dark-mode button:active, .geek-mode button:focus  {
+    box-shadow: 1px 2px 5px green;
+}
+
+.geek-mode {
+    background-color: black;
+    color: lime;
+    font-family: 'Courier New', Courier, monospace;
+}
+.geek-mode button {
+    border: solid 2px lime;
+    background-color: black;
+    color: lime;
+    outline: lime;
+}
+.geek-mode button:active, .geek-mode button:focus  {
+    box-shadow: 1px 2px 5px green;
+}
+.geek-mode #time {
+    font-size: 20vw;
+    font-weight: normal;
+}
+
+#egg-timer-clock {
+    margin-bottom: 20px;
+    font-size: 20vw;
+}
+
+#egg-timer button {
+    color: white;
+    background-color: #4b89dc;
+    outline: #4b89dc;
+    border: none;
+    padding: 10px;
+    margin: 0 10px;
+}
+
+
+#calendar iframe {
+    width: 100vw;
+    min-height: 2000px;
+}
