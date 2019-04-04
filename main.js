@@ -117,12 +117,13 @@ function main(){
       const msSinceStarted = d.getTime() - startDate.getTime();
 
       let minutes = Math.floor(msSinceStarted / MINUTE);
+      const timeRemaining = msSinceStarted - minutes * MINUTE;
       if (isNaN(minutes)) {
         minutes = "";
       } else {
         minutes = minutes.toString().length === 1 ? `0${minutes}` : minutes;
       }
-      let secs = Math.floor(msSinceStarted / SECOND);
+      let secs = Math.floor(timeRemaining / SECOND);
       if (isNaN(secs)) {
         secs = "";
       } else {
