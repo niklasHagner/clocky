@@ -2,6 +2,57 @@
   document.addEventListener("DOMContentLoaded", main)
 })();
 
+
+
+function countUpTimer() {
+  const countUpTimerStartButton = document.querySelector("#count-up-timer-start");
+  countUpTimerStartButton.addEventListener("click", startcountUpTimer);
+  const countUpTimerStopButton = document.querySelector("#count-up-timer-stop");
+  countUpTimerStopButton.addEventListener("click", stopcountUpTimer);
+
+  const countUpTimerResetButton = document.querySelector("#count-up-timer-reset");
+  countUpTimerResetButton.addEventListener("click", resetcountUpTimer);
+
+  let countUpTimerInterval;
+  const MINUTE = 60000, SECOND = 1000;
+  function startcountUpTimer() {
+
+    stopcountUpTimer();
+    const startDate = new Date();
+
+    countUpTimerInterval = setInterval(() => {
+      const d = new Date();
+      const msSinceStarted = d.getTime() - startDate.getTime();
+      let minutes = Math.floor(msSinceStarted / MINUTE);
+      const timeRemaining = msSinceStarted - minutes * MINUTE;
+      if (isNaN(minutes)) {
+        minutes = "";
+      } else {
+        minutes = minutes.toString().length === 1 ? `0${minutes}` : minutes;
+      }
+      let secs = Math.floor(timeRemaining / SECOND);
+      if (isNaN(secs)) {
+        secs = "";
+      } else {
+        secs = secs.toString().length === 1 ? `0${secs}` : secs;
+      }
+
+      document.querySelector("#count-up-timer-clock").innerHTML = `${minutes}:${secs}`;
+    }, 10);
+  }
+
+  function stopcountUpTimer() {
+    if (countUpTimerInterval)
+      clearInterval(countUpTimerInterval);
+  }
+
+  function resetcountUpTimer() {
+    if (countUpTimerInterval)
+      clearInterval(countUpTimerInterval);
+      document.querySelector("#count-up-timer-clock").innerHTML = `00:00`;
+  }  
+}
+
 function main(){
 
   loadBackground();
@@ -71,6 +122,7 @@ function main(){
       '#e6e8fa',
       'lightgreen'
   ];
+  
   function randomizeColor() {
       var random_color = colors[Math.floor(Math.random() * colors.length)];
       return random_color;
@@ -95,55 +147,7 @@ function main(){
         }
     }, 1000);
   }
-  startClock();
 
-  const eggTimerStartButton = document.querySelector("#egg-timer-start");
-  eggTimerStartButton.addEventListener("click", startEggTimer);
-  const eggTimerStopButton = document.querySelector("#egg-timer-stop");
-  eggTimerStopButton.addEventListener("click", stopEggTimer);
-
-  const eggTimerResetButton = document.querySelector("#egg-timer-reset");
-  eggTimerResetButton.addEventListener("click", resetEggTimer);
-
-  let eggTimerInterval;
-  const MINUTE = 60000, SECOND = 1000;
-  function startEggTimer() {
-
-    stopEggTimer();
-    const startDate = new Date();
-
-    eggTimerInterval = setInterval(() => {
-      const d = new Date();
-      const msSinceStarted = d.getTime() - startDate.getTime();
-
-      let minutes = Math.floor(msSinceStarted / MINUTE);
-      const timeRemaining = msSinceStarted - minutes * MINUTE;
-      if (isNaN(minutes)) {
-        minutes = "";
-      } else {
-        minutes = minutes.toString().length === 1 ? `0${minutes}` : minutes;
-      }
-      let secs = Math.floor(timeRemaining / SECOND);
-      if (isNaN(secs)) {
-        secs = "";
-      } else {
-        secs = secs.toString().length === 1 ? `0${secs}` : secs;
-      }
-
-      document.querySelector("#egg-timer-clock").innerHTML = `${minutes}:${secs}`;
-    }, 10);
-  }
-
-  function stopEggTimer() {
-    if (eggTimerInterval)
-      clearInterval(eggTimerInterval);
-  }
-
-  function resetEggTimer() {
-    if (eggTimerInterval)
-      clearInterval(eggTimerInterval);
-      document.querySelector("#egg-timer-clock").innerHTML = `00:00`;
-  }
 
   const tabs = [...document.querySelectorAll(".tab")];
   tabs.forEach((tab) => tab.addEventListener("click", switchTab ));
@@ -160,6 +164,10 @@ function main(){
       const contentTabSelector = selectedTab.getAttribute("data-content-tab-selector");
       document.querySelector(contentTabSelector).classList.remove("hidden");
   }
+
+  
+  startClock();
+  countUpTimer();
 }
 
 const backgrounds = [
