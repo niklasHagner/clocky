@@ -2,8 +2,6 @@
   document.addEventListener("DOMContentLoaded", main)
 })();
 
-
-
 function countUpTimer() {
   const countUpTimerStartButton = document.querySelector("#count-up-timer-start");
   countUpTimerStartButton.addEventListener("click", startcountUpTimer);
@@ -53,6 +51,55 @@ function countUpTimer() {
   }  
 }
 
+function countDownTimer() {
+  const countDownTimerStartButton = document.querySelector("#count-up-timer-start");
+  countDownTimerStartButton.addEventListener("click", startcountDownTimer);
+  const countDownTimerStopButton = document.querySelector("#count-up-timer-stop");
+  countDownTimerStopButton.addEventListener("click", stopcountDownTimer);
+
+  const countDownTimerResetButton = document.querySelector("#count-up-timer-reset");
+  countDownTimerResetButton.addEventListener("click", resetcountDownTimer);
+
+  let countDownTimerInterval;
+  const MINUTE = 60000, SECOND = 1000;
+  function startcountDownTimer() {
+
+    stopcountDownTimer();
+    const startDate = new Date();
+
+    countDownTimerInterval = setInterval(() => {
+      const d = new Date();
+      const msSinceStarted = d.getTime() - startDate.getTime();
+      let minutes = Math.floor(msSinceStarted / MINUTE);
+      const timeRemaining = msSinceStarted - minutes * MINUTE;
+      if (isNaN(minutes)) {
+        minutes = "";
+      } else {
+        minutes = minutes.toString().length === 1 ? `0${minutes}` : minutes;
+      }
+      let secs = Math.floor(timeRemaining / SECOND);
+      if (isNaN(secs)) {
+        secs = "";
+      } else {
+        secs = secs.toString().length === 1 ? `0${secs}` : secs;
+      }
+
+      document.querySelector("#count-up-timer-clock").innerHTML = `${minutes}:${secs}`;
+    }, 10);
+  }
+
+  function stopcountDownTimer() {
+    if (countDownTimerInterval)
+      clearInterval(countDownTimerInterval);
+  }
+
+  function resetcountDownTimer() {
+    if (countDownTimerInterval)
+      clearInterval(countDownTimerInterval);
+      document.querySelector("#count-up-timer-clock").innerHTML = `00:00`;
+  }  
+}
+
 function main(){
 
   loadBackground();
@@ -68,7 +115,6 @@ function main(){
           this.innerText = "Dark mode";
       }
   });
-
 
   const monospaceButton = document.querySelector("#geek-mode");
   monospaceButton.addEventListener("click", ()=> {
@@ -91,7 +137,6 @@ function main(){
           window.animateColors = false;
       }
   });
-
               
   var colors = [
       'tomato',
@@ -122,14 +167,36 @@ function main(){
       '#e6e8fa',
       'lightgreen'
   ];
-  
+
   function randomizeColor() {
       var random_color = colors[Math.floor(Math.random() * colors.length)];
       return random_color;
   };
 
-  function startClock() {
+  function startTimeZoneClocks() {
+    const timeZones = Array.from(document.querySelectorAll(".timezone"));
+    updateMinutesForTimeZoneClock(timeZones);
+    setInterval(() => () => { updateMinutesForTimeZoneClock(timeZones) } , 60000);
+  }
+
+  function updateMinutesForTimeZoneClock(timeZones) {
+    const d = new Date();
+    const utcHours = d.getUTCHours();
+    let utcMinutes = d.getUTCMinutes();
+    utcMinutes = utcMinutes.toString().length === 1 ? `0${utcMinutes}` : utcMinutes;  
+    
+    timeZones.forEach((t) => {
+      const modifier = parseInt(t.getAttribute("data-timezone"));
+      const hours = utcHours + modifier;
+      const formattedHours = hours.toString().length === 1 ? `0${hours}` : hours;  
+      t.getElementsByClassName("timezone__clock")[0].innerHTML = `${formattedHours}:${utcMinutes} `;
+    });
+  }
+
+  function startFrontPageClock() {
     let counter = 0;
+    const minEl = document.querySelector("#mins");
+    const secEl = document.querySelector("#seconds");
     setInterval(() => {
         const d = new Date();
         let minutes = d.getMinutes();
@@ -138,8 +205,8 @@ function main(){
         hours = hours.toString().length === 1 ? `0${hours}` : hours;
         let secs = d.getSeconds();
         secs = secs.toString().length === 1 ? `0${secs}` : secs;
-        document.querySelector("#mins").innerHTML = `${hours}:${minutes} `;
-        document.querySelector("#seconds").innerText = `${secs}`;
+        minEl.innerHTML = `${hours}:${minutes} `;
+        secEl.innerText = `${secs}`;
         counter++;
 
         if (window.animateColors && counter % 10 === 0) {
@@ -166,8 +233,10 @@ function main(){
   }
 
   
-  startClock();
+  startFrontPageClock();
+  startTimeZoneClocks();
   countUpTimer();
+  countDownTimer();
 }
 
 const backgrounds = [

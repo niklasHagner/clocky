@@ -30,7 +30,7 @@ button {
 
 .tab {
     display: inline-block;
-    width: 65px;
+    min-width: 65px;
     padding: 4px;
     cursor: pointer;
     transition: all 0.3s;
@@ -123,4 +123,8 @@ button {
 #calendar iframe {
     width: 100vw;
     min-height: 2000px;
+}
+
+#world > div > span {
+    font-weight: 300;
 }
