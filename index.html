@@ -14,18 +14,23 @@
             box-sizing: border-box;
         }
 
-        *, *:before, *:after {
+        *,
+        *:before,
+        *:after {
             box-sizing: inherit;
         }
 
-        *, *:active, *:focus {
+        *,
+        *:active,
+        *:focus {
             outline: none;
         }
+
         .hidden {
             visibility: hidden !important;
         }
 
-        .timezone span { 
+        .timezone span {
             font-weight: 300;
             font-size: 0.75em;
         }
@@ -49,7 +54,7 @@
 
         </nav>
 
-        <article id="time-tab" class="content-tab"> 
+        <article id="time-tab" class="content-tab">
             <section id="time">
                 <span id="mins">00:00</span><span id="seconds">00</span>
             </section>
@@ -59,8 +64,8 @@
                 <button id="animation-mode">Changing colors</button>
             </section>
         </article>
-        
-        <article id="count-up-timer" class="hidden content-tab"> 
+
+        <article id="count-up-timer" class="hidden content-tab">
             <div id="count-up-timer-clock">00:00</div>
             <button id="count-up-timer-start">start</button>
             <button id="count-up-timer-stop">stop</button>
@@ -68,22 +73,19 @@
         </article>
 
         <article id="count-down-timer" class="hidden content-tab">
-            <h2>Absolute time</h2>
-            <div id="count-down-timer-clock">00:00</div>
-            <input type="time" id="count-down-timer-input" name="count-down-timer-input" value="11:00" required>
-            <button id="count-down-timer-start">start</button>
-            <button id="count-down-timer-stop">stop</button>
-            <button id="count-down-timer-reset">reset</button>
-            <hr>
-            <h2>Relative time</h2>
-            <div id="count-down-timer-clock">5:00</div>
-            <input type="time" id="count-down-timer-input" name="count-down-timer-input" value="PT4H18M3S" required>
+            <h2>Countdown</h2>
+            <div style="margin-bottom: 40px;">
+                <label for="count-down-timer-minutes">Min:</label>
+                <input type="number" id="count-down-timer-minutes" name="count-down-timer-minutes" value="5" max="60" min="0" required>
+                <label for="count-down-timer-seconds">Sec:</label>
+                <input type="number" id="count-down-timer-seconds" name="count-down-timer-seconds" value="0" max="60" min="0"  required>
+            </div>
             <button id="count-down-timer-start">start</button>
             <button id="count-down-timer-stop">stop</button>
             <button id="count-down-timer-reset">reset</button>
         </article>
 
-         <article id="world" class="hidden content-tab">
+        <article id="world" class="hidden content-tab">
             <h2>World time</h2>
             <div style="text-align: left; margin: 0 auto; max-width: 600px;">
                 <div class="timezone" data-timezone="+12"><span class="timezone__clock"></span>+12 Auckland</div>
@@ -95,31 +97,44 @@
                 <div class="timezone" data-timezone="+6"><span class="timezone__clock"></span>+6 Dacca</div>
                 <div class="timezone" data-timezone="+5"><span class="timezone__clock"></span>+5 Karachi</div>
                 <div class="timezone" data-timezone="+4"><span class="timezone__clock"></span>+4 Dubai</div>
-                <div class="timezone" data-timezone="+3"><span class="timezone__clock"></span>+3 Moscow <span>MSK</span></div>
-                <div class="timezone" data-timezone="+2"><span class="timezone__clock"></span>+2 Cairo <span>Eastern European Time</span></div>
-                <div class="timezone" data-timezone="+1"><span class="timezone__clock"></span>+1 Paris <span>CET/CEST</span> </div>
-                <div style="color: mediumseagreen;" class="timezone" data-timezone="+0"><span class="timezone__clock"></span>London <span>GMT/UTC</span> </div>
+                <div class="timezone" data-timezone="+3"><span class="timezone__clock"></span>+3 Moscow <span>MSK</span>
+                </div>
+                <div class="timezone" data-timezone="+2"><span class="timezone__clock"></span>+2 Cairo <span>Eastern
+                        European Time</span></div>
+                <div class="timezone" data-timezone="+1"><span class="timezone__clock"></span>+1 Paris
+                    <span>CET/CEST</span> </div>
+                <div style="color: mediumseagreen;" class="timezone" data-timezone="+0"><span
+                        class="timezone__clock"></span>London <span>GMT/UTC</span> </div>
                 <div class="timezone" data-timezone="-1"><span class="timezone__clock"></span>-1 Azores</div>
-                <div class="timezone" data-timezone="-2"><span class="timezone__clock"></span>-2 South Georgia <span>Mid-Atlantic Time</span></div>
+                <div class="timezone" data-timezone="-2"><span class="timezone__clock"></span>-2 South Georgia
+                    <span>Mid-Atlantic Time</span></div>
                 <div class="timezone" data-timezone="-3"><span class="timezone__clock"></span>-3 Rio</div>
                 <div class="timezone" data-timezone="-4"><span class="timezone__clock"></span>-4 Caracas/Santiago</div>
-                <div class="timezone" data-timezone="-5"><span class="timezone__clock"></span>-5 New York <span>Eastern Time</span></div>
-                <div class="timezone" data-timezone="-6"><span class="timezone__clock"></span>-6 Mexico <span>Central Time</span></div>
-                <div class="timezone" data-timezone="-7"><span class="timezone__clock"></span>-7 Denver <span>Mountain Time</span> </div>
-                <div class="timezone" data-timezone="-8"><span class="timezone__clock"></span>-8 Los Angeles <span>Pacific Time</span> </div>
-                <div class="timezone" data-timezone="-9"><span class="timezone__clock"></span>-9 Anchorage <span>Alaska Time</span> </div>
-                <div class="timezone" data-timezone="-10"><span class="timezone__clock"></span>-10 Hawaii <span>Honolulu Time</span> </div>
-                <div class="timezone" data-timezone="-11"><span class="timezone__clock"></span>-11 Samoa <span>New Calendonia Time</span> </div>
+                <div class="timezone" data-timezone="-5"><span class="timezone__clock"></span>-5 New York <span>Eastern
+                        Time</span></div>
+                <div class="timezone" data-timezone="-6"><span class="timezone__clock"></span>-6 Mexico <span>Central
+                        Time</span></div>
+                <div class="timezone" data-timezone="-7"><span class="timezone__clock"></span>-7 Denver <span>Mountain
+                        Time</span> </div>
+                <div class="timezone" data-timezone="-8"><span class="timezone__clock"></span>-8 Los Angeles
+                    <span>Pacific Time</span> </div>
+                <div class="timezone" data-timezone="-9"><span class="timezone__clock"></span>-9 Anchorage <span>Alaska
+                        Time</span> </div>
+                <div class="timezone" data-timezone="-10"><span class="timezone__clock"></span>-10 Hawaii <span>Honolulu
+                        Time</span> </div>
+                <div class="timezone" data-timezone="-11"><span class="timezone__clock"></span>-11 Samoa <span>New
+                        Calendonia Time</span> </div>
             </div>
         </article>
 
-        <article id="calendar" class="hidden content-tab"> 
-            <iframe src="https://kalendern.herokuapp.com"  width="100%" height="600px" allowfullscreen="" frameborder="0" >
+        <article id="calendar" class="hidden content-tab">
+            <iframe src="https://kalendern.herokuapp.com" width="100%" height="600px" allowfullscreen=""
+                frameborder="0">
             </iframe>
         </article>
 
     </section>
-        
+
 </body>
 
 </html>

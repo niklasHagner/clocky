@@ -128,3 +128,8 @@ button {
 #world > div > span {
     font-weight: 300;
 }
+
+#count-down-timer input {
+    font-size: 20px;
+    font-family: monospace;
+}

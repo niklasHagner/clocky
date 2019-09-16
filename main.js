@@ -28,14 +28,14 @@ function countUpTimer() {
       } else {
         minutes = minutes.toString().length === 1 ? `0${minutes}` : minutes;
       }
-      let secs = Math.floor(timeRemaining / SECOND);
-      if (isNaN(secs)) {
-        secs = "";
+      let seconds = Math.floor(timeRemaining / SECOND);
+      if (isNaN(seconds)) {
+        seconds = "";
       } else {
-        secs = secs.toString().length === 1 ? `0${secs}` : secs;
+        seconds = seconds.toString().length === 1 ? `0${seconds}` : seconds;
       }
 
-      document.querySelector("#count-up-timer-clock").innerHTML = `${minutes}:${secs}`;
+      document.querySelector("#count-up-timer-clock").innerHTML = `${minutes}:${seconds}`;
     }, 10);
   }
 
@@ -52,40 +52,41 @@ function countUpTimer() {
 }
 
 function countDownTimer() {
-  const countDownTimerStartButton = document.querySelector("#count-up-timer-start");
-  countDownTimerStartButton.addEventListener("click", startcountDownTimer);
-  const countDownTimerStopButton = document.querySelector("#count-up-timer-stop");
-  countDownTimerStopButton.addEventListener("click", stopcountDownTimer);
+  const startBtn = document.querySelector("#count-down-timer-start");
+  const stopBtn = document.querySelector("#count-down-timer-stop");
+  const resetBtn = document.querySelector("#count-down-timer-reset");
+  const inputMinutes = document.querySelector("#count-down-timer-minutes");
+  const inputSeconds = document.querySelector("#count-down-timer-seconds");
+  
+  startBtn.addEventListener("click", startcountDownTimer);
+  stopBtn.addEventListener("click", stopcountDownTimer);
+  resetBtn.addEventListener("click", resetcountDownTimer);
 
-  const countDownTimerResetButton = document.querySelector("#count-up-timer-reset");
-  countDownTimerResetButton.addEventListener("click", resetcountDownTimer);
-
-  let countDownTimerInterval;
   const MINUTE = 60000, SECOND = 1000;
+  let countDownTimerInterval;
+  let targetTime;
+
+  function tick() {
+    const d = new Date();
+    const msRemaining = targetTime.getTime() - d.getTime();
+    let minutes = Math.floor(msRemaining / MINUTE);
+    const timeRemaining = msRemaining - minutes * MINUTE;
+    let seconds = Math.floor(timeRemaining / SECOND);
+    inputMinutes.value = minutes;
+    inputSeconds.value = seconds;
+
+    if (minutes <= 0 && seconds <= 0) {
+      stopcountDownTimer();
+    }
+  }
+
   function startcountDownTimer() {
-
     stopcountDownTimer();
-    const startDate = new Date();
+    const now = new Date();
+    targetTime = new Date( now.getTime() + inputMinutes.value * MINUTE + inputSeconds.value * SECOND);
 
-    countDownTimerInterval = setInterval(() => {
-      const d = new Date();
-      const msSinceStarted = d.getTime() - startDate.getTime();
-      let minutes = Math.floor(msSinceStarted / MINUTE);
-      const timeRemaining = msSinceStarted - minutes * MINUTE;
-      if (isNaN(minutes)) {
-        minutes = "";
-      } else {
-        minutes = minutes.toString().length === 1 ? `0${minutes}` : minutes;
-      }
-      let secs = Math.floor(timeRemaining / SECOND);
-      if (isNaN(secs)) {
-        secs = "";
-      } else {
-        secs = secs.toString().length === 1 ? `0${secs}` : secs;
-      }
-
-      document.querySelector("#count-up-timer-clock").innerHTML = `${minutes}:${secs}`;
-    }, 10);
+    tick(); // Looks nice when the user sees an immeidate visual change
+    countDownTimerInterval = setInterval(tick, 500); // check time more often than once per second to avoid lag
   }
 
   function stopcountDownTimer() {
@@ -203,10 +204,10 @@ function main(){
         minutes = minutes.toString().length === 1 ? `0${minutes}` : minutes;  
         let hours = d.getHours();
         hours = hours.toString().length === 1 ? `0${hours}` : hours;
-        let secs = d.getSeconds();
-        secs = secs.toString().length === 1 ? `0${secs}` : secs;
+        let seconds = d.getSeconds();
+        seconds = seconds.toString().length === 1 ? `0${seconds}` : seconds;
         minEl.innerHTML = `${hours}:${minutes} `;
-        secEl.innerText = `${secs}`;
+        secEl.innerText = `${seconds}`;
         counter++;
 
         if (window.animateColors && counter % 10 === 0) {
