@@ -56,17 +56,11 @@
             <section id="time">
                 <span id="mins">00:00</span><span id="seconds">00</span>
             </section>
-            <section>
-                <button id="dark-mode">Dark mode</button>
-                <button id="geek-mode">Geek mode</button>
-                <button id="animation-mode">Changing colors</button>
-            </section>
         </article>
 
         <article id="count-up-timer" class="hidden content-tab">
             <div id="count-up-timer-clock">00:00</div>
-            <button id="count-up-timer-start">start</button>
-            <button id="count-up-timer-stop">stop</button>
+            <button id="count-up-timer-start">▶️ start</button>
             <button id="count-up-timer-reset">reset</button>
         </article>
 
@@ -88,41 +82,41 @@
         <article id="world" class="hidden content-tab">
             <h2>World time</h2>
             <div class="world-table">
-                <div class="timezone" data-timezone="+12"><div>+12 Auckland</div><span class="timezone__clock"></span></div>
-                <div class="timezone" data-timezone="+11"><div>+11 Noumea</div><span class="timezone__clock"></span></div>
-                <div class="timezone" data-timezone="+10"><div>+10 Sydney</div><span class="timezone__clock"></span></div>
-                <div class="timezone" data-timezone="+9"><div>+9 Tokyo</div><span class="timezone__clock"></span></div>
-                <div class="timezone" data-timezone="+8"><div>+8 Hong Kong</div><span class="timezone__clock"></span></div>
-                <div class="timezone" data-timezone="+7"><div>+7 Bangkok</div><span class="timezone__clock"></span></div>
-                <div class="timezone" data-timezone="+6"><div>+6 Dacca</div><span class="timezone__clock"></span></div>
-                <div class="timezone" data-timezone="+5"><div>+5 Karachi</div><span class="timezone__clock"></span></div>
-                <div class="timezone" data-timezone="+4"><div>+4 Dubai</div><span class="timezone__clock"></span></div>
-                <div class="timezone" data-timezone="+3"><div>+3 Moscow <span class="timezone-name">MSK</span></div><span class="timezone__clock"></span></div>
-                <div class="timezone" data-timezone="+2"><div>+2 Minsk <span class="timezone-name">Eastern European Time</span></div><span class="timezone__clock"></span></div>
-                <div class="timezone" data-timezone="+1"><div>+1 Paris <span class="timezone-name">CET/CEST</span></div><span class="timezone__clock"></span></div>
-                <div class="timezone" data-timezone="+0"><div>🌍 London <span class="timezone-name">GMT/UTC</span></div><span class="timezone__clock"></span></div>
-                <div class="timezone" data-timezone="-1"><div>-1 Azores</div><span class="timezone__clock"></span></div>
-                <div class="timezone" data-timezone="-2"><div>-2 Santo Domingo <span class="timezone-name">Mid-Atlantic Time</span></div><span class="timezone__clock"></span></div>
-                <div class="timezone" data-timezone="-3"><div>-3 Rio</div><span class="timezone__clock"></span></div>
-                <div class="timezone" data-timezone="-4"><div>-4 Santiago</div><span class="timezone__clock"></span></div>
-                <div class="timezone" data-timezone="-5"><div>-5 New York <span class="timezone-name">Eastern Time</span></div><span class="timezone__clock"></span></div>
-                <div class="timezone" data-timezone="-6"><div>-6 Mexico <span class="timezone-name">Central Time</span></div><span class="timezone__clock"></span></div>
-                <div class="timezone" data-timezone="-7"><div>-7 Denver <span class="timezone-name">Mountain Time</span> </div><span class="timezone__clock"></span></div>
-                <div class="timezone" data-timezone="-8"><div>-8 Los Angeles <span class="timezone-name">Pacific Time</span></div><span class="timezone__clock"></span></div>
-                <div class="timezone" data-timezone="-9"><div>-9 Anchorage <span class="timezone-name">Alaska Time</span> </div><span class="timezone__clock"></span></div>
-                <div class="timezone" data-timezone="-10"><div>-10 Hawaii <span class="timezone-name">Honolulu Time</span></div><span class="timezone__clock"></span></div>
-                <div class="timezone" data-timezone="-11"><div>-11 Samoa <span class="timezone-name">New Calendonia Time</span> </div><span class="timezone__clock"></span></div>
+                <!-- <section class="timezone" data-timezone="Pacific/Auckland"><div>Auckland</div><span class="timezone__clock"></span></section> -->
+                <!-- <section class="timezone" data-timezone="Pacific/Noumea"><div>Noumea</div><span class="timezone__clock"></span></section> -->
+                <section class="timezone" data-timezone="Australia/Sydney"><div>Sydney</div><span class="timezone__clock"></span></section>
+                <section class="timezone" data-timezone="Asia/Tokyo"><div>Tokyo</div><span class="timezone__clock"></span></section>
+                <section class="timezone" data-timezone="Asia/Hong_Kong"><div>Hong Kong</div><span class="timezone__clock"></span></section>
+                <section class="timezone" data-timezone="Asia/Bangkok"><div>Bangkok</div><span class="timezone__clock"></span></section>
+                <section class="timezone" data-timezone="Asia/Dacca"><div>Dacca</div><span class="timezone__clock"></span></section>
+                <section class="timezone" data-timezone="Asia/Karachi"><div>Karachi</div><span class="timezone__clock"></span></section>
+                <!-- <section class="timezone" data-timezone="Iran"><div>Iran </div><span class="timezone__clock"></span></section> -->
+                <section class="timezone" data-timezone="Asia/Dubai"><div>Dubai</div><span class="timezone__clock"></span></section>
+                <section class="timezone" data-timezone="Europe/Moscow"><div>Moscow <span class="timezone-name">MSK</span></div><span class="timezone__clock"></span></section>
+                <!-- <section class="timezone" data-timezone="Europe/Athens"><div>Athens <span class="timezone-name">Eastern European Time</span></div><span class="timezone__clock"></span></section> -->
+                <section class="timezone" data-timezone="Europe/Paris"><div>Paris <span class="timezone-name">CET/CEST</span></div><span class="timezone__clock"></span></section>
+                <section style="border-top: solid 1px white; border-bottom: solid 1px white;" class="timezone" data-timezone="Europe/London"><div>London <span class="timezone-name">GMT/UTC</span></div><span class="timezone__clock"></span></section>
+                <section class="timezone" data-timezone="Atlantic/Azores"><div>Reykjavik</div ><span class="timezone__clock"></span></section>
+                <!-- <section class="timezone" data-timezone="America/Noronha"><div>Noronha <span class="timezone-name">Mid-Atlantic Time</span></div><span class="timezone__clock"></span></section> -->
+                <section class="timezone" data-timezone="Brazil/East"><div>Brasilia</div> <span class="timezone__clock"></span></section>
+                <section class="timezone" data-timezone="America/New_York"><div>New York <span class="timezone-name">Eastern Time</span></div><span class="timezone__clock"></span></section>
+                <section class="timezone" data-timezone="America/Mexico_City"><div>Mexico <span class="timezone-name">Central Time</span></div><span class="timezone__clock"></span></section>
+                <section class="timezone" data-timezone="America/Denver"><div>Denver <span class="timezone-name">Mountain Time</span> </div><span class="timezone__clock"></span></section>
+                <section class="timezone" data-timezone="America/Los_Angeles"><div>Los Angeles <span class="timezone-name">Pacific Time</span></div><span class="timezone__clock"></span></section>
+                <section class="timezone" data-timezone="America/Anchorage"><div>Anchorage <span class="timezone-name">Alaska Time</span> </div><span class="timezone__clock"></span></section>
+                <section class="timezone" data-timezone="Pacific/Honolulu"><div>Hawaii <span class="timezone-name">Honolulu Time</span></div><span class="timezone__clock"></span></section>
+                <!-- <section class="timezone" data-timezone="US/Samoa"><div>Samoa <span class="timezone-name">New Calendonia Time</span> </div><span class="timezone__clock"></span></section> -->
             </div>
         </article>
 
         <article id="calendar" class="hidden content-tab">
-            <iframe src="https://kalendern.herokuapp.com" width="100%" height="600px" allowfullscreen=""
+            <iframe src="https://kalendern.netlify.app" width="100%" height="600px" allowfullscreen=""
                 frameborder="0">
             </iframe>
         </article>
 
     </section>
-
+    <script defer src="moment.js"></script>
+    <script defer src="moment-timezone-with-data.js"></script>
 </body>
-
 </html>

@@ -4,10 +4,6 @@ html * {
 body {
     text-align: center;
     font-family: helvetica;
-    /* text-shadow: 0px 0px 2px #555; */
-    text-stroke: 1px #222;
-    -webkit-text-stroke: 1px #222;
-    font-weight: bolder;
     color: #eee;
     transition: all 10s;
     background-repeat: no-repeat;
@@ -39,80 +35,42 @@ button {
 
 .tab {
     display: inline-block;
-    min-width: 65px;
     padding: 4px;
+    border: solid 2px crimson;
     cursor: pointer;
     transition: all 0.3s;
+    background-color: white;
+    color: black;
+    font-weight: bold;
+    font-size: 12px;
 }
 .tab:not(:nth-of-type(1)) {
     margin-left: 4px;
     padding-left: 4px;
 }
 .tab:hover {
-    background-color: #444;
-    color: rgb(210, 207, 207);
+    color: black;
 }
 .tab--active {
+    background-color: crimson;
     color: white;
-    background-color: black;
 }
-@media only screen and (min-width: 769px) {
-    .tab {
-        width: 100px;
-        padding: 4px 8px;
-    }
-    .tab:not(:nth-of-type(1)) {
-        margin-left: 4px;
-        padding-left: 4px;
-    }
-}
-  
 
 #time {
     font-size: 20vw;
     opacity: 0.85;
     display: inline-block;
     position: relative;
+    /* text-shadow: 0px 0px 2px #555; */
+    text-stroke: 1px #222;
+    -webkit-text-stroke: 1px #222;
+    font-weight: bolder;
 }
 #seconds {
     font-size: 5vw;
     position: absolute;
     top: -10px;
     right: -100px;
-}
-
-.dark-mode {
-    background-color: #111;
-    color: #eee;
-    opacity: 0.8;
-}
-.dark-mode button {
-    border: solid 2px #555;
-    background-color: #222;
-    color: white;
-    outline: white;
-}
-.dark-mode button:active, .geek-mode button:focus  {
-    box-shadow: 1px 2px 5px green;
-}
-
-.geek-mode {
-    background-color: black;
-    color: lime;
-    font-family: 'Courier New', Courier, monospace;
-}
-.geek-mode button {
-    border: solid 2px lime;
-    background-color: black;
-    color: lime;
-    outline: lime;
-}
-.geek-mode button:active, .geek-mode button:focus  {
-    box-shadow: 1px 2px 5px green;
-}
-.geek-mode #time {
-    font-size: 20vw;
-    font-weight: normal;
 }
 
 #count-up-timer-clock {
@@ -127,6 +85,16 @@ button {
     border: none;
     padding: 10px;
     margin: 0 10px;
+}
+
+#count-up-timer button:hover {
+  background-color: #14478a;
+}
+
+#count-up-timer button:active {
+  background-color: #14478a;
+  box-shadow: 0px 0px 0px rgba(0,0,0,0.5);
+  color: gold;
 }
 
 
@@ -145,6 +113,10 @@ button {
     max-width: 360px;
     display: flex;
     flex-direction: column;
+    padding: 10px;
+    background-color: rgba(0,0,0,0.5);
+    stroke: 0;
+    -webkit-text-stroke: 0;
 }
 .world-table .timezone {
     display: flex;
