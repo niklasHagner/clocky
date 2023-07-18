@@ -5,18 +5,24 @@
 function countUpTimer() {
   const countUpTimerStartButton = document.querySelector("#count-up-timer-start");
   countUpTimerStartButton.addEventListener("click", startcountUpTimer);
-  const countUpTimerStopButton = document.querySelector("#count-up-timer-stop");
-  countUpTimerStopButton.addEventListener("click", stopcountUpTimer);
 
   const countUpTimerResetButton = document.querySelector("#count-up-timer-reset");
   countUpTimerResetButton.addEventListener("click", resetcountUpTimer);
 
   let countUpTimerInterval;
   const MINUTE = 60000, SECOND = 1000;
-  function startcountUpTimer() {
+  let isCountUpTimerActive = false;
 
-    stopcountUpTimer();
+  function startcountUpTimer() {
+    isCountUpTimerActive = !isCountUpTimerActive;
+    stopCountUpTimer();
     const startDate = new Date();
+    
+    if (isCountUpTimerActive) {
+      countUpTimerStartButton.innerText = "⏸️ pause";
+    } else {
+      countUpTimerStartButton.innerText = "▶️ start";
+    }
 
     countUpTimerInterval = setInterval(() => {
       const d = new Date();
@@ -39,7 +45,7 @@ function countUpTimer() {
     }, 10);
   }
 
-  function stopcountUpTimer() {
+  function stopCountUpTimer() {
     if (countUpTimerInterval)
       clearInterval(countUpTimerInterval);
   }
@@ -107,73 +113,6 @@ function main(){
 
   document.querySelector("#time").classList.remove("transparent");
 
-  const darkModeButton = document.querySelector("#dark-mode");
-  darkModeButton.addEventListener("click", ()=> {
-      document.body.classList.toggle("dark-mode"); 
-      if (document.body.classList.contains("dark-mode")) {
-          this.innerText = "Light mode";
-      } else {
-          this.innerText = "Dark mode";
-      }
-  });
-
-  const monospaceButton = document.querySelector("#geek-mode");
-  monospaceButton.addEventListener("click", ()=> {
-      document.body.classList.toggle("geek-mode"); 
-      if (document.body.classList.contains("geek-mode")) {
-          this.innerText = "Normal mode";
-      } else {
-          this.innerText = "Geek mode";
-      }
-  });
-
-  const animationMode = document.querySelector("#animation-mode");
-  animationMode.addEventListener("click", ()=> {
-      document.body.classList.toggle("animation-mode");
-      if (document.body.classList.contains("animation-mode")) {
-          this.innerText = "No animation";
-          window.animateColors = true;
-      } else {
-          this.innerText = "Animation";
-          window.animateColors = false;
-      }
-  });
-              
-  var colors = [
-      'tomato',
-      'steelblue',
-      'lightsteelblue',
-      'gold',
-      'coral',
-      'darksalmon',
-      'lightgreen',
-      'steelblue',
-      'teal',
-      '#eee',
-      '#ff7900',
-      'pink',
-      'orange',
-      'palevioletred',
-      'mediumspringgreen',
-      'bisque',
-      'dodgerblue',
-      'gold',
-      'powderblue',
-      'deepskyblue',
-      'mediumseagreen',
-      'lightblue',
-      'papayawhip',
-      'lightcoral',
-      'chocolate',
-      '#e6e8fa',
-      'lightgreen'
-  ];
-
-  function randomizeColor() {
-      var random_color = colors[Math.floor(Math.random() * colors.length)];
-      return random_color;
-  };
-
   function startTimeZoneClocks() {
     const timeZones = Array.from(document.querySelectorAll(".timezone"));
     updateMinutesForTimeZoneClock(timeZones);
@@ -187,10 +126,11 @@ function main(){
     utcMinutes = utcMinutes.toString().length === 1 ? `0${utcMinutes}` : utcMinutes;  
     
     timeZones.forEach((t) => {
-      const modifier = parseInt(t.getAttribute("data-timezone"));
-      const hours = utcHours + modifier;
-      const formattedHours = hours.toString().length === 1 ? `0${hours}` : hours;  
-      t.getElementsByClassName("timezone__clock")[0].innerHTML = `${formattedHours}:${utcMinutes} `;
+      const tz = t.getAttribute("data-timezone");
+      const tzFormat = moment.tz(tz).format("HH:mm");
+      t.getElementsByClassName("timezone__clock")[0].innerHTML = `${tzFormat} `;
+      // const formattedHours = hours.toString().length === 1 ? `0${hours}` : hours;  
+      // t.getElementsByClassName("timezone__clock")[0].innerHTML = `${formattedHours}:${utcMinutes} `;
     });
   }
 
@@ -241,6 +181,18 @@ function main(){
 }
 
 const backgrounds = [
+  "https://allthatsinteresting.com/wordpress/wp-content/uploads/2013/05/cinemagraph-gifs-bridge.gif",
+  "https://allthatsinteresting.com/wordpress/wp-content/uploads/2013/05/cinemagraph-gifs-dog-ears.gif",
+  "https://allthatsinteresting.com/wordpress/wp-content/uploads/2013/05/cinemagraph-gifs-temple.gif",
+  "https://allthatsinteresting.com/wordpress/wp-content/uploads/2013/05/cinemagraph-gifs-deer.gif",
+  "https://allthatsinteresting.com/wordpress/wp-content/uploads/2013/05/cinemagraph-gifs-hot-dog-vendor.gif",
+  "https://allthatsinteresting.com/wordpress/wp-content/uploads/2013/05/cinemagraph-gifs-new-york-city-waterfront.gif",
+  "https://allthatsinteresting.com/wordpress/wp-content/uploads/2013/05/cinemagraph-gifs-taxi-window.gif",
+  "https://allthatsinteresting.com/wordpress/wp-content/uploads/2013/05/cinemagraph-gifs-whiskey.gif",
+  "https://allthatsinteresting.com/wordpress/wp-content/uploads/2013/05/cinemagraph-gifs-river.gif",
+  "https://allthatsinteresting.com/wordpress/wp-content/uploads/2013/05/cinemagraph-gifs-traffic.gif",
+  "https://allthatsinteresting.com/wordpress/wp-content/uploads/2013/05/cinemagraph-gifs-fall.gif",
+  "https://allthatsinteresting.com/wordpress/wp-content/uploads/2013/05/cinemagraph-gifs-fire.gif",
   "https://d36zo2s4q1lc88.cloudfront.net/wp-content/uploads/2018/09/04165023/Cinemagrafia-07152450759127.gif",
   "https://thumbs.gfycat.com/BareVelvetyApisdorsatalaboriosa-mobile.mp4",
   "https://images.squarespace-cdn.com/content/v1/55ed989ee4b0c7f115ddc924/1530720499177-WK7ZSQ1ZA5G9M0MFYINF/ke17ZwdGBToddI8pDm48kJQyhJNCPFaF3z6oMQ5KwFtZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZUJFbgE-7XRK3dMEBRBhUpzhlCaEgGK9R2Fj-RtkyZyFbHKQz_-8cz-_kD00qBQm_sLaI7aC2mtvXSuxlNMVkDA/18-cinemagraph-photography-inspiration.gif",
@@ -263,9 +215,10 @@ const backgrounds = [
   "https://vinylgif.com/gifs/201412/record-player-cinemagraph.gif",
   "https://i.pinimg.com/originals/6c/6c/aa/6c6caa58c39088561b7d2cd0115c58a0.gif",
   "https://annstreetstudio.com/wp-content/uploads/2018/02/meteor-shower-monument-valley.gif",
-  "https://enlaps.io/wp-content/uploads/2017/09/fika-980.gif",
-  "http://gifzign.com/wp-content/uploads/2017/07/Armani-Coffee-615.gif",
-  "http://gifzign.com/wp-content/uploads/2017/07/60s9801.gif",
+  "https://allthatsinteresting.com/wordpress/wp-content/uploads/2013/05/cinemagraph-gifs-lava.gif",
+  "https://allthatsinteresting.com/wordpress/wp-content/uploads/2013/05/cinemagraph-gifs-cat.gif",
+  "https://allthatsinteresting.com/wordpress/wp-content/uploads/2013/05/cinemagraph-gifs-hummingbird.gif",
+  "https://allthatsinteresting.com/wordpress/wp-content/uploads/2013/05/cinemagraph-gifs-dog.gif",
   "https://assets.econsultancy.com/images/resized/0006/3909/chopard-marketing-cinemagraph-blog-flyer.png"
 ];
 function loadBackground() {
