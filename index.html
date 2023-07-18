@@ -8,6 +8,7 @@
     <meta name="description" content="clock and timer">
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
     <link rel="stylesheet" type="text/css" href="main.css" />
+    <link rel="stylesheet" type="text/css" href="pomodoro.css" />
     <script src="main.js"></script>
     <style>
         html {
@@ -46,10 +47,9 @@
         <nav class="menu">
             <span class="tab tab--clock tab--active" data-content-tab-selector="#time-tab">Clock</span>
             <span class="tab tab--count-up-timer" data-content-tab-selector="#count-up-timer">Timer</span>
-            <span class="tab tab--count-up-timer" data-content-tab-selector="#count-down-timer">Countdown</span>
+            <span class="tab tab--count-up-timer" data-content-tab-selector="#pomodoro-tab">Pomodoro</span>
             <span class="tab tab--calendar" data-content-tab-selector="#calendar">Calendar</span>
             <span class="tab tab--world" data-content-tab-selector="#world">Timezones</span>
-
         </nav>
 
         <article id="time-tab" class="content-tab">
@@ -64,19 +64,52 @@
             <button id="count-up-timer-reset">reset</button>
         </article>
 
-        <article id="count-down-timer" class="hidden content-tab">
-            <h2>Countdown</h2>
-            <div style="margin-bottom: 40px;">
-                <label for="count-down-timer-minutes">Min:</label>
-                <input type="number" id="count-down-timer-minutes" name="count-down-timer-minutes" value="5" max="60"
-                    min="0" required>
-                <label for="count-down-timer-seconds">Sec:</label>
-                <input type="number" id="count-down-timer-seconds" name="count-down-timer-seconds" value="0" max="60"
-                    min="0" required>
+        <article id="pomodoro-tab" class="hidden content-tab">
+            <div class="pomodoro-container">
+              <!-- Session -->
+              <div class="pomodoro-item">
+                  <div id="labelSessionBreak" class="label">Session</div>
+                  <div class="row-pomodoro">
+                      <div id="pomodoro-time-remaining">25:00</div>
+                  </div>
+              </div>
+
+              <!-- Session Length -->
+              <div class="pomodoro-item">
+                  <div class="label">Session Length</div>
+                  <div class="row-pomodoro">
+                      <button id="sessionDecrement" class="btn-updown">-</button>
+                      <div id="sessionLength" class="row-pomodoro lengthTime">25</div>
+                      <button id="sessionIncrement" class="btn-updown">+</button>
+                  </div>
+              </div>
+
+              <!-- Break Length -->
+              <div class="pomodoro-item">
+                  <div class="label">Break Length</div>
+                  <div class="row-pomodoro">
+                      <button id="breakDecrement" class="btn-updown">-</button>
+                      <div id="breakLength" class="row-pomodoro lengthTime">5</div>
+                      <button id="breakIncrement" class="btn-updown">+</button>
+                  </div>
+              </div>
+              
+              <!-- Play/Pause/Reset -->
+              <div class="pomodoro-item playerButton">
+                  <div class="row-pomodoro buttonRow">
+                      <button id="buttonPlay" class="btn-controller">
+                          <i id="playIcon" class="fas fa-play" aria-hidden="true"></i>
+                      </button>
+                      <button id="buttonReset" class="btn-controller"> 
+                          <i class="fas fa-sync" aria-hidden="true"></i>
+                      </button>
+                  </div>
+              </div>
+
             </div>
-            <button id="count-down-timer-start">start</button>
-            <button id="count-down-timer-stop">stop</button>
-            <button id="count-down-timer-reset">reset</button>
+
+            <!-- Sound -->
+            <audio id="beep" src="https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3"></audio>
         </article>
 
         <article id="world" class="hidden content-tab">
@@ -118,5 +151,9 @@
     </section>
     <script defer src="moment.js"></script>
     <script defer src="moment-timezone-with-data.js"></script>
+    <script defer src="pomodoro.js"></script>
+    <script defer src="https://kit.fontawesome.com/ed4e9fbefd.js"></script>
+
+    
 </body>
 </html>

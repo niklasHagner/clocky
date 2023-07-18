@@ -57,56 +57,6 @@ function countUpTimer() {
   }  
 }
 
-function countDownTimer() {
-  const startBtn = document.querySelector("#count-down-timer-start");
-  const stopBtn = document.querySelector("#count-down-timer-stop");
-  const resetBtn = document.querySelector("#count-down-timer-reset");
-  const inputMinutes = document.querySelector("#count-down-timer-minutes");
-  const inputSeconds = document.querySelector("#count-down-timer-seconds");
-  
-  startBtn.addEventListener("click", startcountDownTimer);
-  stopBtn.addEventListener("click", stopcountDownTimer);
-  resetBtn.addEventListener("click", resetcountDownTimer);
-
-  const MINUTE = 60000, SECOND = 1000;
-  let countDownTimerInterval;
-  let targetTime;
-
-  function tick() {
-    const d = new Date();
-    const msRemaining = targetTime.getTime() - d.getTime();
-    let minutes = Math.floor(msRemaining / MINUTE);
-    const timeRemaining = msRemaining - minutes * MINUTE;
-    let seconds = Math.floor(timeRemaining / SECOND);
-    inputMinutes.value = minutes;
-    inputSeconds.value = seconds;
-
-    if (minutes <= 0 && seconds <= 0) {
-      stopcountDownTimer();
-    }
-  }
-
-  function startcountDownTimer() {
-    stopcountDownTimer();
-    const now = new Date();
-    targetTime = new Date( now.getTime() + inputMinutes.value * MINUTE + inputSeconds.value * SECOND);
-
-    tick(); // Looks nice when the user sees an immeidate visual change
-    countDownTimerInterval = setInterval(tick, 500); // check time more often than once per second to avoid lag
-  }
-
-  function stopcountDownTimer() {
-    if (countDownTimerInterval)
-      clearInterval(countDownTimerInterval);
-  }
-
-  function resetcountDownTimer() {
-    if (countDownTimerInterval)
-      clearInterval(countDownTimerInterval);
-      document.querySelector("#count-up-timer-clock").innerHTML = `00:00`;
-  }  
-}
-
 function main(){
 
   loadBackground();
@@ -171,13 +121,16 @@ function main(){
       selectedTab.classList.add("tab--active");
       const contentTabSelector = selectedTab.getAttribute("data-content-tab-selector");
       document.querySelector(contentTabSelector).classList.remove("hidden");
+
+      if (event.target.getAttribute("data-content-tab-selector") === "#pomodoro-tab") {
+        pomodoroJs(); //Could be run in the main fn but uses `innerText` so doesn't work if the tab is display:none
+      }
   }
 
   
   startFrontPageClock();
   startTimeZoneClocks();
   countUpTimer();
-  countDownTimer();
 }
 
 const backgrounds = [
@@ -221,6 +174,7 @@ const backgrounds = [
   "https://allthatsinteresting.com/wordpress/wp-content/uploads/2013/05/cinemagraph-gifs-dog.gif",
   "https://assets.econsultancy.com/images/resized/0006/3909/chopard-marketing-cinemagraph-blog-flyer.png"
 ];
+
 function loadBackground() {
   const url = backgrounds[Math.floor(Math.random() * backgrounds.length)];
   document.body.style.backgroundImage = `url(${url})`;
