@@ -80,16 +80,20 @@ button {
 }
 
 #count-up-timer button {
-    color: white;
-    background-color: #4b89dc;
-    outline: #4b89dc;
     border: none;
     padding: 10px;
     margin: 0 10px;
+    border-radius: 50px;
+    min-width: 100px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #b1980d;
+    color: #14478a;
 }
 
 #count-up-timer button:hover {
-  background-color: #14478a;
+  background-color: #ffd800;
 }
 
 #count-up-timer button:active {
