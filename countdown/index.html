@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Timer</title>
+    <meta name="description"
+      content="Simple and efficient online countdown timer to keep track of time for cooking, study, work, and more.">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik+Mono+One&family=Bad+Script&display=swap"
+      rel="stylesheet">
+    <style>
+      html * {
+        box-sizing: border-box;
+      }
+
+      input {
+        max-width: 200px;
+      }
+
+      input,
+      button {
+        border: solid 5px #246eb5;
+        font-family: 'Rubik Mono One';
+        font-size: 32px;
+      }
+
+      button {
+        background-color: #246eb5;
+        color: antiquewhite;
+      }
+
+      body {
+        text-align: center;
+        font-family: helvetica;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-attachment: fixed;
+        background-size: cover;
+        background: linear-gradient(to right, #36d1dc, #5b86e5);
+        font-family: 'Bad Script', sans-serif;
+        color: antiquewhite;
+
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+
+      button {
+        text-stroke: 0;
+        -webkit-text-stroke: 0;
+        cursor: pointer;
+      }
+
+      footer {
+        padding: 20px;
+        text-align: center;
+        margin-top: auto;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      #time-left {
+        font-size: 15vw;
+        font-family: 'Rubik Mono One', monospace;
+        text-shadow: 3px 3px 0px #246eb5;
+        color: antiquewhite;
+      }
+
+      #timer-reset {
+        margin-top: 50px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h1>Timer</h1>
+      <article id="screen1">
+        <div>
+          <input type="text" value="5:00" maxlength="5">
+          <button id="btn-start">Start</button>
+          <div style="height: 200px"></div>
+
+          <!-- https://custom-doodle.com/doodle/cute-bee/ -->
+          <img src="https://custom-doodle.com/wp-content/uploads/doodle/cute-bee/cute-bee-doodle.gif" alt=""
+            width="200px">
+        </div>
+      </article>
+
+      <article id="screen2" class="hidden">
+        <div>
+          <div id="time-left">00:00</div>
+        </div>
+        <img
+          src="https://custom-doodle.com/wp-content/uploads/doodle/cute-bumble-bee-flying/cute-bumble-bee-flying-doodle.gif"
+          alt="">
+        <br>
+
+        <button id="timer-reset">Reset</button>
+      </article>
+    </header>
+    <main>
+    </main>
+    <footer>
+      <p>Created by Hagge</p>
+    </footer>
+    <script type="text/javascript">
+      (function () {
+        document.addEventListener("DOMContentLoaded", main)
+      })();
+
+      function main() {
+        document.querySelector("#screen1 input").addEventListener("input", function () {
+          console.log(this.value);
+        });
+
+        const btnStart = document.querySelector("#btn-start");
+        btnStart.addEventListener("click", startCountDownTimer);
+        let timeRemaining, totalTimeInSeconds;
+
+        const btnReset = document.querySelector("#timer-reset");
+        btnReset.addEventListener("click", resetcountDownTimer);
+
+        let countDownTimerInterval;
+
+        function startCountDownTimer() {
+          const totalTimeInSeconds = parseSecondsFromInput();
+          if (Number.isNaN(totalTimeInSeconds) || totalTimeInSeconds <= 0) {
+            alert("Please enter a valid time like 10:00 or 0:20");
+            return;
+          }
+          timeRemaining = totalTimeInSeconds;
+          document.querySelector("#screen2").classList.remove("hidden");
+          document.querySelector("#screen1").classList.add("hidden");
+
+          stopCountDownTimer();
+          const startDate = new Date();
+          setTimeRemaining();
+
+          countDownTimerInterval = setInterval(() => {
+            setTimeRemaining();
+          }, 1000);
+        }
+
+        function setTimeRemaining() {
+          timeRemaining -= 1;
+          if (timeRemaining < 0) {
+            // Stop the timer when time is up
+            clearInterval(countDownTimerInterval);
+            timeRemaining = 0;
+            alert("Time is up!")
+            document.querySelector("#screen1").classList.remove("hidden");
+            document.querySelector("#screen2").classList.add("hidden");
+          }
+
+
+          let minutes = Math.floor(timeRemaining / 60);
+          let seconds = (timeRemaining % 60).toString().padStart(2, '0');
+          document.querySelector("#time-left").innerHTML = `${minutes}:${seconds}`;
+        }
+
+        function stopCountDownTimer() {
+          if (countDownTimerInterval)
+            clearInterval(countDownTimerInterval);
+        }
+
+        function resetcountDownTimer() {
+          if (countDownTimerInterval) {
+            clearInterval(countDownTimerInterval);
+          }
+          document.querySelector("#time-left").innerHTML = `00:00`;
+          document.querySelector("#screen1").classList.remove("hidden");
+          document.querySelector("#screen2").classList.add("hidden");
+        }
+
+      }
+
+      function parseSecondsFromInput() {
+        const time = document.querySelector("#screen1 input").value;
+        const [minutes, seconds] = time.split(":");
+        return parseInt(minutes) * 60 + parseInt(seconds);
+      }
+    </script>
+  </body>
+
+</html>

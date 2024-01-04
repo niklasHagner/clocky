@@ -46,7 +46,8 @@
     <section id="main">
         <nav class="menu">
             <span class="tab tab--clock tab--active" data-content-tab-selector="#time-tab">Clock</span>
-            <span class="tab tab--count-up-timer" data-content-tab-selector="#count-up-timer">Timer</span>
+            <span class="tab tab--count-up-timer" data-content-tab-selector="#count-down-timer">Down-timer</span>
+            <span class="tab tab--count-up-timer" data-content-tab-selector="#count-up-timer">Up-timer</span>
             <span class="tab tab--count-up-timer" data-content-tab-selector="#pomodoro-tab">Pomodoro</span>
             <span class="tab tab--calendar" data-content-tab-selector="#calendar">Calendar</span>
             <span class="tab tab--world" data-content-tab-selector="#world">Timezones</span>
@@ -63,6 +64,12 @@
             <button id="count-up-timer-start">▶️ start</button>
             <button id="count-up-timer-reset">reset</button>
         </article>
+
+        <article id="count-down-timer" class="hidden content-tab">
+          <iframe src="https://timerminute.netlify.app" width="100%" height="600px" allowfullscreen=""
+              frameborder="0">
+          </iframe>
+      </article>
 
         <article id="pomodoro-tab" class="hidden content-tab">
             <div class="pomodoro-container">
