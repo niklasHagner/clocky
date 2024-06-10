@@ -12,6 +12,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Rubik+Mono+One&family=Bad+Script&display=swap"
       rel="stylesheet">
     <style>
+      :root {
+        --animation-duration: 0s;
+      }
+
       html * {
         box-sizing: border-box;
       }
@@ -64,7 +68,7 @@
         display: none;
       }
 
-      #time-left {
+      .time-left {
         font-size: 15vw;
         font-family: 'Rubik Mono One', monospace;
         text-shadow: 3px 3px 0px #246eb5;
@@ -74,6 +78,39 @@
       #timer-reset {
         margin-top: 50px;
       }
+
+      @keyframes rotate {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes move {
+        0% {
+          transform: translateY(0);
+        }
+        100% {
+          transform: translateY(100%);
+        }
+      }
+
+      #moving-bee {
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
+      .move {
+        animation: move var(--animation-duration) linear infinite;
+      }
+
+      .rotate {
+        animation: rotate 25s linear infinite;
+      }
+
     </style>
   </head>
 
@@ -94,15 +131,23 @@
 
       <article id="screen2" class="hidden">
         <div>
-          <div id="time-left">00:00</div>
+          <button class="timer-reset">Reset</button>
+          <div id="time-left" class="time-left">00:00</div>
         </div>
-        <img
-          src="https://custom-doodle.com/wp-content/uploads/doodle/cute-bumble-bee-flying/cute-bumble-bee-flying-doodle.gif"
+        <img id="moving-bee" class="move"
+          src="https://custom-doodle.com/wp-content/uploads/doodle/cute-bumble-bee-flying/cute-bumble-bee-flying-doodle.gif" width="300px"
           alt="">
         <br>
-
-        <button id="timer-reset">Reset</button>
       </article>
+
+      <article id="screen3" class="hidden">
+        <div>
+          <button class="timer-reset">Reset</button>
+          <div class="time-left">Time up</div>
+        </div>
+        <br>
+      </article>
+
     </header>
     <main>
     </main>
@@ -118,25 +163,31 @@
         document.querySelector("#screen1 input").addEventListener("input", function () {
           console.log(this.value);
         });
+        
 
         const btnStart = document.querySelector("#btn-start");
         btnStart.addEventListener("click", startCountDownTimer);
         let timeRemaining, totalTimeInSeconds;
 
-        const btnReset = document.querySelector("#timer-reset");
-        btnReset.addEventListener("click", resetcountDownTimer);
+        const btnReset = [...document.querySelectorAll(".timer-reset")];
+        btnReset.forEach(x => x.addEventListener("click", resetcountDownTimer));
+
+        let audio = new Audio("/chime.mp3");
+        const bee = document.querySelector("#moving-bee");
 
         let countDownTimerInterval;
 
         function startCountDownTimer() {
           const totalTimeInSeconds = parseSecondsFromInput();
           if (Number.isNaN(totalTimeInSeconds) || totalTimeInSeconds <= 0) {
-            alert("Please enter a valid time like 10:00 or 0:20");
+            alert("Enter a time with colon, like 5:00 or 0:30");
             return;
           }
           timeRemaining = totalTimeInSeconds;
           document.querySelector("#screen2").classList.remove("hidden");
           document.querySelector("#screen1").classList.add("hidden");
+          document.documentElement.style.setProperty('--animation-duration', `${totalTimeInSeconds}s`);
+          bee.classList.add("move"),
 
           stopCountDownTimer();
           const startDate = new Date();
@@ -150,12 +201,13 @@
         function setTimeRemaining() {
           timeRemaining -= 1;
           if (timeRemaining < 0) {
-            // Stop the timer when time is up
+            bee.classList.remove("move");
+            document.querySelector("#screen2").classList.add("hidden");
+            document.querySelector("#screen3").classList.remove("hidden");
             clearInterval(countDownTimerInterval);
             timeRemaining = 0;
-            alert("Time is up!")
-            document.querySelector("#screen1").classList.remove("hidden");
-            document.querySelector("#screen2").classList.add("hidden");
+            audio.play();
+           
           }
 
 
@@ -176,6 +228,7 @@
           document.querySelector("#time-left").innerHTML = `00:00`;
           document.querySelector("#screen1").classList.remove("hidden");
           document.querySelector("#screen2").classList.add("hidden");
+          document.querySelector("#screen3").classList.add("hidden");
         }
 
       }
