@@ -12,9 +12,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Rubik+Mono+One&family=Bad+Script&display=swap"
       rel="stylesheet">
     <style>
-      :root {
-        --animation-duration: 0s;
-      }
 
       html * {
         box-sizing: border-box;
@@ -79,36 +76,10 @@
         margin-top: 50px;
       }
 
-      @keyframes rotate {
-        from {
-          transform: rotate(0deg);
-        }
-        to {
-          transform: rotate(360deg);
-        }
-      }
-
-      @keyframes move {
-        0% {
-          transform: translateY(0);
-        }
-        100% {
-          transform: translateY(calc(100dvh - 250px)); /* bee height is 250px */
-        }
-      }
-
       #moving-bee {
         position: absolute;
         top: 0;
         left: 0;
-      }
-
-      .move {
-        animation: move var(--animation-duration) linear infinite;
-      }
-
-      .rotate {
-        animation: rotate 25s linear infinite;
       }
 
     </style>
@@ -123,8 +94,8 @@
           <button id="btn-start">Start</button>
           <div style="height: 200px"></div>
 
-          <!-- https://custom-doodle.com/doodle/cute-bee/ -->
-          <img src="https://custom-doodle.com/wp-content/uploads/doodle/cute-bee/cute-bee-doodle.gif" alt=""
+          <!-- Stolen from https://custom-doodle.com/doodle/cute-bee/ -->
+          <img alt="bee" src="https://custom-doodle.com/wp-content/uploads/doodle/cute-bee/cute-bee-doodle.gif" alt=""
             width="200px">
         </div>
       </article>
@@ -134,7 +105,7 @@
           <button class="timer-reset">Reset</button>
           <div id="time-left" class="time-left">00:00</div>
         </div>
-        <img id="moving-bee" class="move"
+        <img id="moving-bee"
           src="https://custom-doodle.com/wp-content/uploads/doodle/cute-bumble-bee-flying/cute-bumble-bee-flying-doodle.gif" width="300px"
           alt="">
         <br>
@@ -186,8 +157,26 @@
           timeRemaining = totalTimeInSeconds;
           document.querySelector("#screen2").classList.remove("hidden");
           document.querySelector("#screen1").classList.add("hidden");
-          document.documentElement.style.setProperty('--animation-duration', `${totalTimeInSeconds}s`);
-          bee.classList.add("move"),
+          const beeHeight = window.innerHeight - bee.offsetHeight;
+          const beeStep = beeHeight / (totalTimeInSeconds * 60); // Increase steps for smoothness
+          let beePosition = 0;
+
+          const beeInterval = setInterval(() => {
+            beePosition += beeStep;
+            bee.style.transform = `translateY(${beePosition}px)`;
+          }, 16); 
+
+          setTimeout(() => clearInterval(beeInterval), totalTimeInSeconds * 1000);
+
+          // When switching tabs the animation will pause, so when switching back - resume the animation
+          document.addEventListener("visibilitychange", () => { 
+            if (document.visibilityState === "visible") {
+            const elapsedTime = totalTimeInSeconds - timeRemaining;
+            beePosition = (elapsedTime / totalTimeInSeconds) * beeHeight;
+            bee.style.transform = `translateY(${beePosition}px)`;
+            }
+          });
+          
 
           stopCountDownTimer();
           const startDate = new Date();
