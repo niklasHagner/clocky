@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Timer</title>
+    <title>Timerbee</title>
     <meta name="description"
       content="Simple and efficient online countdown timer to keep track of time for cooking, study, work, and more.">
     <meta charset="UTF-8">
@@ -100,7 +100,7 @@
         </div>
       </article>
 
-      <article id="screen2" class="hidden">
+      <article id="moving-bee-screen" class="hidden">
         <div>
           <button class="timer-reset">Reset</button>
           <div id="time-left" class="time-left">00:00</div>
@@ -111,7 +111,7 @@
         <br>
       </article>
 
-      <article id="screen3" class="hidden">
+      <article id="time-up-screen" class="hidden">
         <div>
           <button class="timer-reset">Reset</button>
           <div class="time-left">Time up</div>
@@ -155,7 +155,7 @@
             return;
           }
           timeRemaining = totalTimeInSeconds;
-          document.querySelector("#screen2").classList.remove("hidden");
+          document.querySelector("#moving-bee-screen").classList.remove("hidden");
           document.querySelector("#screen1").classList.add("hidden");
           const beeHeight = window.innerHeight - bee.offsetHeight;
           const beeStep = beeHeight / (totalTimeInSeconds * 60); // Increase steps for smoothness
@@ -191,18 +191,18 @@
           timeRemaining -= 1;
           if (timeRemaining < 0) {
             bee.classList.remove("move");
-            document.querySelector("#screen2").classList.add("hidden");
-            document.querySelector("#screen3").classList.remove("hidden");
+            document.querySelector("#moving-bee-screen").classList.add("hidden");
+            document.querySelector("#time-up-screen").classList.remove("hidden");
             clearInterval(countDownTimerInterval);
             timeRemaining = 0;
             audio.play();
-           
+            document.title = `TIME UP`;
+          } else {
+            let minutes = Math.floor(timeRemaining / 60);
+            let seconds = (timeRemaining % 60).toString().padStart(2, '0');
+            document.querySelector("#time-left").innerHTML = `${minutes}:${seconds}`;
+            document.title = `${minutes}:${seconds} ⌛️ Timerbee`;
           }
-
-
-          let minutes = Math.floor(timeRemaining / 60);
-          let seconds = (timeRemaining % 60).toString().padStart(2, '0');
-          document.querySelector("#time-left").innerHTML = `${minutes}:${seconds}`;
         }
 
         function stopCountDownTimer() {
@@ -216,8 +216,8 @@
           }
           document.querySelector("#time-left").innerHTML = `00:00`;
           document.querySelector("#screen1").classList.remove("hidden");
-          document.querySelector("#screen2").classList.add("hidden");
-          document.querySelector("#screen3").classList.add("hidden");
+          document.querySelector("#moving-bee-screen").classList.add("hidden");
+          document.querySelector("#time-up-screen").classList.add("hidden");
         }
 
       }
